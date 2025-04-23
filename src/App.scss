@@ -1,0 +1,375 @@
+/* 全局样式重置和基本设置 */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f4f7f6;
+  height: 100vh; /* 确保body占满视口高度 */
+  overflow: hidden; /* 防止出现滚动条 */
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  margin: 0; /* 移除margin */
+  padding: 0; /* 移除padding */
+  max-width: none; /* 移除最大宽度限制 */
+  text-align: left; /* 修改文本对齐方式 */
+}
+
+/* 主应用容器 */
+.app-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  overflow: hidden; /* 防止整体出现滚动条 */
+}
+
+/* 左侧边栏 */
+.sidebar {
+  width: 260px;
+  min-width: 260px; /* 添加最小宽度，防止被挤压 */
+  background-color: #e9ecef;
+  border-right: 1px solid #dee2e6;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.new-chat-button {
+  background-color: #007bff; /* 蓝色按钮 */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #0056b3; /* 悬停加深 */
+  }
+}
+
+.chat-list {
+  flex-grow: 1; /* 占据剩余空间 */
+  overflow-y: auto; /* 内容过多时滚动 */
+}
+
+.chat-item {
+  padding: 12px 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap; /* 防止标题换行 */
+  overflow: hidden;
+  text-overflow: ellipsis; /* 超出显示省略号 */
+  color: #495057; /* 默认文字颜色 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+  }
+
+  .delete-chat-button {
+    background: none;
+    border: none;
+    color: #6c757d;
+    font-size: 1.2rem;
+    padding: 0 8px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      color: #dc3545;
+    }
+  }
+
+  &:hover .delete-chat-button {
+    opacity: 1;
+  }
+
+  &:hover {
+    background-color: #ced4da; /* 悬停背景 */
+  }
+
+  &.active {
+    background-color: #adb5bd; /* 选中背景 */
+    color: #212529; /* 选中文字颜色 */
+    font-weight: 500;
+  }
+}
+
+/* 右侧聊天窗口 */
+.chat-window {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  overflow: hidden; /* 防止内容溢出 */
+}
+
+.messages-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  margin-bottom: 15px;
+  display: flex;
+  max-width: 800px; /* 设置消息最大宽度 */
+  min-width: 0; /* 允许消息在必要时缩小 */
+}
+
+.message-bubble {
+  padding: 10px 15px;
+  border-radius: 18px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  max-width: 100%; /* 确保气泡不会超出消息容器 */
+  overflow-wrap: break-word; /* 确保长单词也会换行 */
+  hyphens: auto; /* 添加连字符支持 */
+
+   // Markdown 样式
+   p {
+    margin: 0 0 1em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // 代码块样式
+  pre {
+    background-color: #f8f9fa;
+    padding: 1em;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0.5em 0;
+    
+    code {
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.9em;
+    }
+  }
+
+  // 行内代码样式
+  code {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+
+  // 链接样式
+  a {
+    color: #0366d6;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  // 列表样式
+  ul, ol {
+    margin: 0.5em 0;
+    padding-left: 1.5em;
+  }
+
+  // 表格样式
+  table {
+    border-collapse: collapse;
+    margin: 0.5em 0;
+    width: 100%;
+    
+    th, td {
+      border: 1px solid #dfe2e5;
+      padding: 6px 13px;
+    }
+    
+    th {
+      background-color: #f6f8fa;
+    }
+  }
+
+  // 引用样式
+  blockquote {
+    margin: 0.5em 0;
+    padding-left: 1em;
+    border-left: 4px solid #dfe2e5;
+    color: #6a737d;
+  }
+
+}
+
+.user-message {
+  align-self: flex-end; /* 用户消息靠右 */
+  .message-bubble {
+    background-color: #007bff; /* 用户消息蓝色 */
+    color: white;
+    border-bottom-right-radius: 5px; /* 右下角调整 */
+    pre {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    code {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    a {
+      color: #ffffff;
+    }
+  }
+}
+
+.ai-message {
+  align-self: flex-start; /* AI 消息靠左 */
+  pre {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  code {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  .message-bubble {
+    background-color: #f1f3f5; /* AI 消息浅灰色 */
+    color: #343a40;
+    border-bottom-left-radius: 5px; /* 左下角调整 */
+  }
+  
+}
+
+.input-area {
+  display: flex;
+  padding: 15px;
+  border-top: 1px solid #dee2e6; /* 输入区分隔线 */
+  background-color: #f8f9fa; /* 输入区背景 */
+
+  input[type="text"] {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 20px; /* 圆角输入框 */
+    margin-right: 10px;
+    font-size: 1rem;
+    outline: none; /* 去除焦点边框 */
+    transition: border-color 0.2s ease;
+
+    &:focus {
+      border-color: #80bdff; /* 焦点时边框高亮 */
+    }
+  }
+
+  button {
+    padding: 10px 20px;
+    background-color: #28a745; /* 发送按钮绿色 */
+    color: white;
+    border: none;
+    border-radius: 20px; /* 圆角按钮 */
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #218838; /* 悬停加深 */
+    }
+  }
+}
+
+.no-chat-selected {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6c757d; /* 提示文字颜色 */
+    font-size: 1.1rem;
+}
+
+/* 滚动条美化 (可选) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #adb5bd;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #868e96;
+}
+
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+  .test {
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+  }
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* 移除不需要的样式 */
+.logo {
+  display: none;
+}
+
+.card {
+  display: none;
+}
+
+.read-the-docs {
+  display: none;
+}
