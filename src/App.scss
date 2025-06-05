@@ -133,7 +133,6 @@ body {
 .message {
   margin-bottom: 15px;
   display: flex;
-  max-width: 800px; /* 设置消息最大宽度 */
   min-width: 0; /* 允许消息在必要时缩小 */
 }
 
@@ -142,7 +141,6 @@ body {
   border-radius: 18px;
   line-height: 1.4;
   word-wrap: break-word;
-  max-width: 100%; /* 确保气泡不会超出消息容器 */
   overflow-wrap: break-word; /* 确保长单词也会换行 */
   hyphens: auto; /* 添加连字符支持 */
 
@@ -218,10 +216,12 @@ body {
 }
 
 .user-message {
-  align-self: flex-end; /* 用户消息靠右 */
+  // align-self: flex-end; /* 用户消息靠右 */
+  flex-direction: row-reverse; /* 消息内容反向 */;
   .message-bubble {
     background-color: #007bff; /* 用户消息蓝色 */
     color: white;
+    max-width: 800px; /* 用户消息最大宽度 */
     border-bottom-right-radius: 5px; /* 右下角调整 */
     pre {
       background-color: rgba(255, 255, 255, 0.1);
@@ -247,6 +247,7 @@ body {
     background-color: rgba(0, 0, 0, 0.1);
   }
   .message-bubble {
+    max-width: 800px; /* AI 消息最大宽度 */
     background-color: #f1f3f5; /* AI 消息浅灰色 */
     color: #343a40;
     border-bottom-left-radius: 5px; /* 左下角调整 */
@@ -372,4 +373,8 @@ body {
 
 .read-the-docs {
   display: none;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
 }
